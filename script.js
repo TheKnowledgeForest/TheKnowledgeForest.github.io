@@ -103,7 +103,10 @@
       e.preventDefault();
 
       const email = emailEl.value.trim();
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      // RFC 5322-compatible pattern: allows dots, plus signs, quoted strings,
+      // hyphens in domain labels, and multi-part TLDs.
+      const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
+      if (!email || !emailPattern.test(email)) {
         showFormMessage(form, 'Please enter a valid email address.', 'error');
         emailEl.focus();
         return;
