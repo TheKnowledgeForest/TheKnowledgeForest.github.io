@@ -640,6 +640,17 @@ ul { list-style: none; }
   margin-bottom: 0;
 }
 
+/* Inline feedback message below the sign-up form */
+.form-message {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-earth-700);
+}
+
+.form-message[data-type="success"] { color: var(--color-green-700); }
+.form-message[data-type="error"]   { color: #dc2626; }
+
 /* ----- Footer ------------------------------------------ */
 .footer {
   background: var(--color-earth-900);

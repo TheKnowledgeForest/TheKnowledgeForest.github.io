@@ -7,17 +7,17 @@
 
   /* ----- Constants --------------------------------------- */
   /** Pixel offset subtracted from section top to account for the sticky header. */
-  var HEADER_OFFSET = 80;
+  const HEADER_OFFSET = 80;
 
   /** Initial Y offset for scroll-reveal animation (in px). */
-  var REVEAL_OFFSET = '24px';
+  const REVEAL_OFFSET = '24px';
 
   /**
    * RFC 5322-compatible email validation pattern.
    * Allows dots, hyphens, plus signs, and multi-part TLDs while rejecting
    * addresses that would obviously fail delivery.
    */
-  var EMAIL_VALIDATION_PATTERN = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
+  const EMAIL_VALIDATION_PATTERN = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
 
   /* ----- Dynamic year in footer ------------------------- */
   const yearEl = document.getElementById('year');
@@ -138,12 +138,10 @@
     if (!msgEl) {
       msgEl = document.createElement('p');
       msgEl.className = 'form-message';
-      msgEl.style.cssText =
-        'margin-top:.75rem;font-size:.9rem;font-weight:500;';
       form.insertAdjacentElement('afterend', msgEl);
     }
     msgEl.textContent = message;
-    msgEl.style.color = type === 'success' ? '#15803d' : '#dc2626';
+    msgEl.dataset.type = type;
   }
 
   /* ----- Smooth hash links (for older browsers) --------- */
