@@ -508,6 +508,8 @@ ul { list-style: none; }
   position: relative;
   width: 280px;
   height: 280px;
+  /* Total number of avatars orbiting the centre */
+  --avatar-count: 6;
 }
 
 .avatar {
@@ -524,7 +526,7 @@ ul { list-style: none; }
   font-size: 1.125rem;
   border: 3px solid var(--color-green-800);
   /* orbit */
-  --angle: calc(var(--i) * (360deg / 6));
+  --angle: calc(var(--i) * (360deg / var(--avatar-count)));
   top: calc(50% - 28px + 100px * sin(var(--angle)));
   left: calc(50% - 28px + 100px * cos(var(--angle)));
   animation: orbit-pulse 3s ease-in-out calc(var(--i) * 0.5s) infinite alternate;

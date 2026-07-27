@@ -5,6 +5,20 @@
 (function () {
   'use strict';
 
+  /* ----- Constants --------------------------------------- */
+  /** Pixel offset subtracted from section top to account for the sticky header. */
+  var HEADER_OFFSET = 80;
+
+  /** Initial Y offset for scroll-reveal animation (in px). */
+  var REVEAL_OFFSET = '24px';
+
+  /**
+   * RFC 5322-compatible email validation pattern.
+   * Allows dots, hyphens, plus signs, and multi-part TLDs while rejecting
+   * addresses that would obviously fail delivery.
+   */
+  var EMAIL_VALIDATION_PATTERN = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
+
   /* ----- Dynamic year in footer ------------------------- */
   const yearEl = document.getElementById('year');
   if (yearEl) {
@@ -50,7 +64,7 @@
     let currentId = '';
     sections.forEach(function (section) {
       const top = section.getBoundingClientRect().top;
-      if (top <= 80) {
+      if (top <= HEADER_OFFSET) {
         currentId = section.id;
       }
     });
@@ -74,7 +88,7 @@
     // Initial state – hide elements before they enter the viewport
     revealEls.forEach(function (el) {
       el.style.opacity = '0';
-      el.style.transform = 'translateY(24px)';
+      el.style.transform = 'translateY(' + REVEAL_OFFSET + ')';
       el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     });
 
@@ -103,10 +117,7 @@
       e.preventDefault();
 
       const email = emailEl.value.trim();
-      // RFC 5322-compatible pattern: allows dots, plus signs, quoted strings,
-      // hyphens in domain labels, and multi-part TLDs.
-      const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
-      if (!email || !emailPattern.test(email)) {
+      if (!email || !EMAIL_VALIDATION_PATTERN.test(email)) {
         showFormMessage(form, 'Please enter a valid email address.', 'error');
         emailEl.focus();
         return;
